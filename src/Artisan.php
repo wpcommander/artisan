@@ -6,10 +6,12 @@ class Artisan
 {
     public static function exec( $rootDir )
     {
-        $pluginNewName = (string) stream_get_line( "Enter plugin name: " );
+        
+
+        $pluginNewName = static::run( "Enter plugin name: " );
         $pluginNewName = PluginName::pluginNameValidation( $pluginNewName );
 
-        $pluginNewNameSpace = (string) stream_get_line( "Enter plugin namespace: " );
+        $pluginNewNameSpace = static::run( "Enter plugin namespace: " );
         $pluginNewNameSpace = PluginNamespace::pluginNameSpaceValidation( $pluginNewNameSpace );
 
         $folders = ['app', 'bootstrap', 'config', 'enqueues', 'routes'];
@@ -29,8 +31,8 @@ class Artisan
 
         $dir     = $rootDir . '\composer.json';
         $content = Common::getReplaceContent( $dir, $data );
-        $content = str_replace('"post-create-project-cmd" : "php artisan"', '', $content);
-        file_put_contents($dir, $content);
+        $content = str_replace( '"post-create-project-cmd" : "php artisan"', '', $content );
+        file_put_contents( $dir, $content );
 
         $content      = Common::getReplaceContent( $rootDir . '\wpcommander.php', $data );
         $rootFileName = str_replace( ' ', '-', strtolower( $pluginNewName ) ) . '.php';
@@ -44,5 +46,15 @@ class Artisan
 
         unlink( $rootDir . '\wpcommander.php' );
         unlink( $rootDir . '\artisan' );
+    }
+
+    public static function run($text)
+    {
+        if ( PHP_OS == 'WINNT' ) {
+            echo $text;
+            return stream_get_line( STDIN, 1024, PHP_EOL );
+        } else {
+            return readline( $text );
+        }
     }
 }
