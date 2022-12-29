@@ -27,8 +27,10 @@ class Artisan
             Common::getDirContents( $dir, $data );
         }
 
-        $dir = $rootDir . '\composer.json';
-        Common::updatePluginInfo( $dir, $data );
+        $dir     = $rootDir . '\composer.json';
+        $content = Common::getReplaceContent( $dir, $data );
+        $content = str_replace('"post-create-project-cmd" : "php artisan"', '', $content);
+        file_put_contents($dir, $content);
 
         $content      = Common::getReplaceContent( $rootDir . '\wpcommander.php', $data );
         $rootFileName = str_replace( ' ', '-', strtolower( $pluginNewName ) ) . '.php';
