@@ -37,7 +37,7 @@ class Artisan
         fwrite( $file, $content );
         fclose( $file );
 
-        exec( 'composer remove wpcommander/artisan' );
+        exec( 'composer remove --dev wpcommander/artisan' );
         exec( 'composer dump-autoload' );
 
         unlink( $rootDir . '\wpcommander.php' );
