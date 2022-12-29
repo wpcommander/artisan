@@ -4,12 +4,12 @@ namespace Wpcommander\Artisan;
 
 class Artisan
 {
-    public static function shell_exec( $rootDir )
+    public static function exec( $rootDir )
     {
-        $pluginNewName = (string) readline( "Enter plugin name: " );
+        $pluginNewName = (string) stream_get_line( "Enter plugin name: " );
         $pluginNewName = PluginName::pluginNameValidation( $pluginNewName );
 
-        $pluginNewNameSpace = (string) readline( "Enter plugin namespace: " );
+        $pluginNewNameSpace = (string) stream_get_line( "Enter plugin namespace: " );
         $pluginNewNameSpace = PluginNamespace::pluginNameSpaceValidation( $pluginNewNameSpace );
 
         $folders = ['app', 'bootstrap', 'config', 'enqueues', 'routes'];
@@ -39,8 +39,8 @@ class Artisan
         fwrite( $file, $content );
         fclose( $file );
 
-        shell_exec( 'composer remove --dev wpcommander/artisan' );
-        shell_exec( 'composer dump-autoload' );
+        exec( 'composer remove --dev wpcommander/artisan' );
+        exec( 'composer dump-autoload' );
 
         unlink( $rootDir . '\wpcommander.php' );
         unlink( $rootDir . '\artisan' );
