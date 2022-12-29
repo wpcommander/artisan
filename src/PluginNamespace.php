@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpcommander;
+namespace Wpcommander\Artisan;
 
 class PluginNamespace
 {
