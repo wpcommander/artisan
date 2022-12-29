@@ -31,7 +31,7 @@ class Artisan
 
         $dir     = $rootDir . '\composer.json';
         $content = Common::getReplaceContent( $dir, $data );
-        $content = str_replace( '"post-autoload-dump" : "php artisan"', '', $content );
+        $content = str_replace( '"post-create-project-cmd" : "php artisan"', '', $content );
         file_put_contents( $dir, $content );
 
         $content      = Common::getReplaceContent( $rootDir . '\wpcommander.php', $data );
