@@ -50,11 +50,6 @@ class Artisan
 
     public static function run($text)
     {
-        if ( PHP_OS == 'WINNT' ) {
-            echo $text;
-            return stream_get_line( STDIN, 1024, PHP_EOL );
-        } else {
-            return readline( $text );
-        }
+        return readline( $text );
     }
 }
