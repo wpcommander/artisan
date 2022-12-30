@@ -2,53 +2,60 @@
 
 namespace Wpcommander\Artisan;
 
+use Symfony\Component\Console\Application;
+
 class Artisan
 {
     public static function exec( $rootDir )
     {
-        
 
-        $pluginNewName = static::run( "Enter plugin name: " );
-        $pluginNewName = PluginName::pluginNameValidation( $pluginNewName );
+        $application = new Application();
 
-        $pluginNewNameSpace = static::run( "Enter plugin namespace: " );
-        $pluginNewNameSpace = PluginNamespace::pluginNameSpaceValidation( $pluginNewNameSpace );
+        $application->add( new Setup );
 
-        $folders = ['app', 'bootstrap', 'config', 'enqueues', 'routes'];
-        $data    = [
-            'pluginName'         => 'PluginName',
-            'pluginNewName'      => $pluginNewName,
-            'pluginNamespace'    => 'PluginNameSpace',
-            'pluginNewNamespace' => $pluginNewNameSpace,
-            'apiNamespace'       => 'plugin-api-namespace',
-            'apiNewNamespace'    => 'myplugin'
-        ];
+        $application->run();
 
-        foreach ( $folders as $folder ) {
-            $dir = $rootDir . '\\' . $folder;
-            Common::getDirContents( $dir, $data );
-        }
+        // $pluginNewName = static::run( "Enter plugin name: " );
+        // $pluginNewName = PluginName::pluginNameValidation( $pluginNewName );
 
-        $dir     = $rootDir . '\composer.json';
-        $content = Common::getReplaceContent( $dir, $data );
-        $content = str_replace( '"post-create-project-cmd" : "php artisan"', '', $content );
-        file_put_contents( $dir, $content );
+        // $pluginNewNameSpace = static::run( "Enter plugin namespace: " );
+        // $pluginNewNameSpace = PluginNamespace::pluginNameSpaceValidation( $pluginNewNameSpace );
 
-        $content      = Common::getReplaceContent( $rootDir . '\wpcommander.php', $data );
-        $rootFileName = str_replace( ' ', '-', strtolower( $pluginNewName ) ) . '.php';
-        $file         = fopen( $rootFileName, "wb" );
+        // $folders = ['app', 'bootstrap', 'config', 'enqueues', 'routes'];
+        // $data    = [
+        //     'pluginName'         => 'PluginName',
+        //     'pluginNewName'      => $pluginNewName,
+        //     'pluginNamespace'    => 'PluginNameSpace',
+        //     'pluginNewNamespace' => $pluginNewNameSpace,
+        //     'apiNamespace'       => 'plugin-api-namespace',
+        //     'apiNewNamespace'    => 'myplugin'
+        // ];
 
-        fwrite( $file, $content );
-        fclose( $file );
+        // foreach ( $folders as $folder ) {
+        //     $dir = $rootDir . '\\' . $folder;
+        //     Common::getDirContents( $dir, $data );
+        // }
 
-        exec( 'composer remove --dev wpcommander/artisan' );
-        exec( 'composer dump-autoload' );
+        // $dir     = $rootDir . '\composer.json';
+        // $content = Common::getReplaceContent( $dir, $data );
+        // $content = str_replace( '"post-create-project-cmd" : "php artisan"', '', $content );
+        // file_put_contents( $dir, $content );
 
-        unlink( $rootDir . '\wpcommander.php' );
-        unlink( $rootDir . '\artisan' );
+        // $content      = Common::getReplaceContent( $rootDir . '\wpcommander.php', $data );
+        // $rootFileName = str_replace( ' ', '-', strtolower( $pluginNewName ) ) . '.php';
+        // $file         = fopen( $rootFileName, "wb" );
+
+        // fwrite( $file, $content );
+        // fclose( $file );
+
+        // exec( 'composer remove --dev wpcommander/artisan' );
+        // exec( 'composer dump-autoload' );
+
+        // unlink( $rootDir . '\wpcommander.php' );
+        // unlink( $rootDir . '\artisan' );
     }
 
-    public static function run($text)
+    public static function run( $text )
     {
         return readline( $text );
     }
