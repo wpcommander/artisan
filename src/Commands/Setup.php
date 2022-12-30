@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Wpcommander\Artisan\Common;
 
-// the name of the command is what users type after "php bin/console"
 #[AsCommand(
     name:'app:setup',
     description:'Setup wordpress plugin basic information',
@@ -55,7 +54,9 @@ class Setup extends Command
             'pluginNamespace'    => 'PluginNameSpace',
             'pluginNewNamespace' => $pluginNameSpace,
             'apiNamespace'       => 'plugin-api-namespace',
-            'apiNewNamespace'    => $pluginApiNameSpace
+            'apiNewNamespace'    => $pluginApiNameSpace,
+            'pluginFileName'     => 'PluginFileName',
+            'pluginNewFileName'  => str_replace( ' ', '-', strtolower( $pluginName ) )
         ];
 
         foreach ( $this->folders() as $folder ) {
@@ -63,16 +64,20 @@ class Setup extends Command
             Common::getDirContents( $dir, $data );
         }
 
+        foreach ( $this->files() as $file ) {
+            Common::updatePluginInfo( $this->rootDir . '\\' . $file, $data );
+        }
+
+        $this->updateInformation( $data );
+
         return Command::SUCCESS;
     }
 
     public function updateInformation( array $data )
     {
-        $dir = $this->rootDir . '\composer.json';
-        Common::updatePluginInfo( $dir, $data );
-
         $content      = Common::getReplaceContent( $this->rootDir . '\wpcommander.php', $data );
-        $rootFileName = str_replace( ' ', '-', strtolower( $data['pluginNewName'] ) ) . '.php';
+        $name         = str_replace( ' ', '-', strtolower( $data['pluginNewFileName'] ) );
+        $rootFileName = $name . '.php';
         $file         = fopen( $rootFileName, "wb" );
 
         fwrite( $file, $content );
@@ -81,6 +86,16 @@ class Setup extends Command
         exec( 'composer dump-autoload' );
 
         unlink( $this->rootDir . '\wpcommander.php' );
+    }
+
+    protected function files()
+    {
+        return [
+            'composer.json',
+            'Gruntfile.js',
+            'package.json',
+            'postcss.config.js'
+        ];
     }
 
     protected function configure(): void

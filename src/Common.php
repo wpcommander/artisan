@@ -11,12 +11,14 @@ class Common
             [
                 $data['pluginNamespace'],
                 $data['pluginName'],
-                $data['apiNamespace']
+                $data['apiNamespace'],
+                $data['pluginFileName']
             ],
             [
                 $data['pluginNewNamespace'],
                 $data['pluginNewName'],
-                $data['apiNewNamespace']
+                $data['apiNewNamespace'],
+                $data['pluginNewFileName']
             ],
             $content
         );
