@@ -2,6 +2,11 @@
     "name": "wpcommander/artisan",
     "type": "library",
     "license": "MIT",
+    "scripts": {
+        "build": [
+            "@composer --no-plugins --no-interaction install --no-scripts --no-dev"
+          ]
+    },
     "autoload": {
         "psr-4": {
             "Wpcommander\\Artisan\\": "src/"
@@ -14,7 +19,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "symfony/console": "6.3.x-dev"
+    "require-dev": {
+        "symfony/console": "5.4.17"
     }
 }
