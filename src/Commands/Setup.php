@@ -55,7 +55,7 @@ class Setup extends Command
             'pluginNewNamespace' => $pluginNameSpace,
             'apiNamespace'       => 'plugin-api-namespace',
             'apiNewNamespace'    => $pluginApiNameSpace,
-            'pluginFileName'     => 'PluginFileName',
+            'pluginFileName'     => 'pluginFileName',
             'pluginNewFileName'  => str_replace( ' ', '-', strtolower( $pluginName ) )
         ];
 
@@ -84,6 +84,7 @@ class Setup extends Command
         fclose( $file );
 
         exec( 'composer dump-autoload' );
+        exec( 'npm i' );
 
         unlink( $this->rootDir . '\wpcommander.php' );
     }
