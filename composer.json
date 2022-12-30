@@ -19,7 +19,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require-dev": {
+    "require": {
         "symfony/console": "5.4.17"
     }
 }
