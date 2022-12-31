@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpcommander\Artisan\Commands;
+namespace Wpcommander\Artisan\Commands\App;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

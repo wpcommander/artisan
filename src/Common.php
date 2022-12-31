@@ -41,4 +41,28 @@ class Common
             }
         }
     }
+
+    public static function getNamespace( $rootDir )
+    {
+        $getComposerJsonContent = json_decode( file_get_contents( $rootDir . '/composer.json' ), true );
+
+        foreach ( $getComposerJsonContent['autoload']['psr-4'] as $key => $item ) {
+            $folders = explode( '/', $item );
+            if ( isset( $folders[0] ) ) {
+                if ( 'app' == $folders[0] ) {
+                    $classes = explode( '\\', $key );
+                    if ( isset( $classes[0] ) ) {
+                        return $classes[0];
+                    }
+                }
+            }
+        }
+        return '';
+    }
+
+    public static function getWpCommanderFrameworkVersion( $rootDir )
+    {
+        $getComposerJsonContent = json_decode( file_get_contents( $rootDir . '/composer.json' ), true );
+        return $getComposerJsonContent['require']['wpcommander/framework'];
+    }
 }
