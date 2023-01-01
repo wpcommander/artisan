@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
 #[AsCommand(
@@ -28,10 +29,11 @@ class ServiceProvider extends Command
         $serviceProvider = $input->getArgument( 'serviceProvider' );
         $serviceProvider = str_replace( [' ', '/', '\\'], ['', '', ''], $serviceProvider );
         $serviceProvider = ucwords( $serviceProvider );
-        $filePath   = $this->rootDir . '/app/Providers/' . $serviceProvider . '.php';
+        $filePath        = $this->rootDir . '/app/Providers/' . $serviceProvider . '.php';
 
         if ( is_file( $filePath ) ) {
-            $output->writeln( $serviceProvider . ' ServiceProvider Already Exists' );
+            $io = new SymfonyStyle( $input, $output );
+            $io->getErrorStyle()->warning( $serviceProvider . ' ServiceProvider Class Already Exists' );
             return Command::INVALID;
         }
 

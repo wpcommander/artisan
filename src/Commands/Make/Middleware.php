@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
 #[AsCommand(
@@ -31,7 +32,8 @@ class Middleware extends Command
         $filePath   = $this->rootDir . '/app/Http/Middleware/' . $middleware . '.php';
 
         if ( is_file( $filePath ) ) {
-            $output->writeln( $middleware . ' Middleware Already Exists' );
+            $io = new SymfonyStyle( $input, $output );
+            $io->getErrorStyle()->warning( $middleware . ' Middleware Class Already Exists' );
             return Command::INVALID;
         }
 

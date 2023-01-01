@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
 #[AsCommand(
@@ -31,7 +32,8 @@ class Controller extends Command
         $filePath   = $this->rootDir . '/app/Http/Controllers/' . $controller . '.php';
 
         if ( is_file( $filePath ) ) {
-            $output->writeln( $controller . ' Controller Already Exists' );
+            $io = new SymfonyStyle( $input, $output );
+            $io->getErrorStyle()->warning( $controller . ' Controller Class Already Exists' );
             return Command::INVALID;
         }
 
@@ -41,7 +43,7 @@ class Controller extends Command
 
         fwrite( $file, $content );
         fclose( $file );
-        $output->writeln( '<info>'.$controller . ' Controller Created Successfully!</info>' );
+        $output->writeln( '<info>' . $controller . ' Controller Created Successfully!</info>' );
 
         return Command::SUCCESS;
     }
