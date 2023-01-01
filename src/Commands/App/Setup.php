@@ -85,6 +85,7 @@ class Setup extends Command
 
         exec( 'composer dump-autoload' );
         exec( 'npm i' );
+        exec( 'npm run minify' );
 
         unlink( $this->rootDir . '\wpcommander.php' );
     }
