@@ -41,7 +41,7 @@ class ServiceProvider extends Command
 
         fwrite( $file, $content );
         fclose( $file );
-        $output->writeln( $serviceProvider );
+        $output->writeln( '<info>' . $serviceProvider . ' ServiceProvider Created Successfully!</info>' );
 
         return Command::SUCCESS;
     }
@@ -55,7 +55,7 @@ class ServiceProvider extends Command
     {
         return '<?php
 
-namespace PluginNameSpace\App\Http\Providers;
+namespace PluginNameSpace\App\Providers;
 
 use WpCommander\Contracts\ServiceProvider;
 

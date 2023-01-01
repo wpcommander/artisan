@@ -41,7 +41,7 @@ class Middleware extends Command
 
         fwrite( $file, $content );
         fclose( $file );
-        $output->writeln( $middleware );
+        $output->writeln( '<info>' . $middleware . ' Middleware Created Successfully!</info>' );
 
         return Command::SUCCESS;
     }

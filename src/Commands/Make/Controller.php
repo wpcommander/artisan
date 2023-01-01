@@ -41,7 +41,7 @@ class Controller extends Command
 
         fwrite( $file, $content );
         fclose( $file );
-        $output->writeln( $controller );
+        $output->writeln( '<info>'.$controller . ' Controller Created Successfully!</info>' );
 
         return Command::SUCCESS;
     }
