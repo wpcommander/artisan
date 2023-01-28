@@ -96,7 +96,8 @@ class Setup extends Command
             'composer.json',
             'Gruntfile.js',
             'package.json',
-            'postcss.config.js'
+            'postcss.config.js',
+            'scoper.inc.php'
         ];
     }
 
