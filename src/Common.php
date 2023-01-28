@@ -1,6 +1,6 @@
 <?php
 
-namespace Wpcommander\Artisan;
+namespace WpCommander\Artisan;
 
 class Common
 {

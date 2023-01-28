@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Wpcommander\\Artisan\\": "src/"
+            "WpCommander\\Artisan\\": "src/"
         }
     },
     "authors": [

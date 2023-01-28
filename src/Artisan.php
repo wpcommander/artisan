@@ -1,12 +1,12 @@
 <?php
 
-namespace Wpcommander\Artisan;
+namespace WpCommander\Artisan;
 
 use Symfony\Component\Console\Application;
-use Wpcommander\Artisan\Commands\App\Setup;
-use Wpcommander\Artisan\Commands\Make\Controller;
-use Wpcommander\Artisan\Commands\Make\Middleware;
-use Wpcommander\Artisan\Commands\Make\ServiceProvider;
+use WpCommander\Artisan\Commands\App\Setup;
+use WpCommander\Artisan\Commands\Make\Controller;
+use WpCommander\Artisan\Commands\Make\Middleware;
+use WpCommander\Artisan\Commands\Make\ServiceProvider;
 
 class Artisan
 {
