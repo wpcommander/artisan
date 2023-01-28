@@ -54,11 +54,13 @@ class Middleware extends Command
 
     private function middlewareFileContent()
     {
+        $namespace = explode('\\', __NAMESPACE__)[0];
+
         return '<?php
 
-namespace PluginNameSpace\App\Http\Middleware;
+namespace ' . $namespace . '\App\Http\Middleware;
 
-use WpCommander\Contracts\Middleware;
+use ' . $namespace . '\WpCommander\Contracts\Middleware;
 use WP_REST_Request;
 
 class MiddlewareName implements Middleware

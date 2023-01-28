@@ -54,11 +54,13 @@ class ServiceProvider extends Command
 
     private function middlewareFileContent()
     {
+        $namespace = explode('\\', __NAMESPACE__)[0];
+
         return '<?php
 
-namespace PluginNameSpace\App\Providers;
+namespace ' . $namespace . '\App\Providers;
 
-use WpCommander\Contracts\ServiceProvider;
+use ' . $namespace . '\WpCommander\Contracts\ServiceProvider;
 
 class ServiceProviderName extends ServiceProvider
 {

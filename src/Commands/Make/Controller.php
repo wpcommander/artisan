@@ -56,7 +56,7 @@ class Controller extends Command
     {
         return '<?php
 
-namespace PluginNameSpace\App\Http\Controllers;
+namespace ' . explode('\\', __NAMESPACE__)[0] . '\App\Http\Controllers;
 
 class ControllerName extends Controller
 {
