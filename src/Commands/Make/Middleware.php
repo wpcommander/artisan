@@ -10,12 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
-#[AsCommand(
-    name:'make:middleware',
-    description:'Create a middleware class',
-)]
 class Middleware extends Command
 {
+    protected static $defaultName = 'make:middleware';
+
+    protected static $defaultDescription = 'Create a middleware class';
+
     protected $rootDir;
 
     public function __construct( string $rootDir )
@@ -27,7 +27,7 @@ class Middleware extends Command
     protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $middleware = $input->getArgument( 'middleware' );
-        $middleware = str_replace( [' ', '/', '\\'], ['', '', ''], $middleware );
+        $middleware = (string) str_replace( [' ', '/', '\\'], ['', '', ''], $middleware );
         $middleware = ucwords( $middleware );
         $filePath   = $this->rootDir . '/app/Http/Middleware/' . $middleware . '.php';
 
@@ -38,7 +38,7 @@ class Middleware extends Command
         }
 
         $namespace = Common::getNamespace( $this->rootDir );
-        $content   = str_replace( ['PluginNameSpace', 'MiddlewareName'], [$namespace, $middleware], $this->middlewareFileContent() );
+        $content   = (string) str_replace( ['PluginNameSpace', 'MiddlewareName'], [$namespace, $middleware], $this->middlewareFileContent() );
         $file      = fopen( $filePath, "wb" );
 
         fwrite( $file, $content );

@@ -10,12 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
-#[AsCommand(
-    name:'make:provider',
-    description:'Create a new service provider class',
-)]
 class ServiceProvider extends Command
 {
+    protected static $defaultName = 'make:provider';
+
+    protected static $defaultDescription = 'Create a new service provider class';
+
     protected $rootDir;
 
     public function __construct( string $rootDir )
@@ -27,7 +27,7 @@ class ServiceProvider extends Command
     protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $serviceProvider = $input->getArgument( 'serviceProvider' );
-        $serviceProvider = str_replace( [' ', '/', '\\'], ['', '', ''], $serviceProvider );
+        $serviceProvider = (string) str_replace( [' ', '/', '\\'], ['', '', ''], $serviceProvider );
         $serviceProvider = ucwords( $serviceProvider );
         $filePath        = $this->rootDir . '/app/Providers/' . $serviceProvider . '.php';
 
@@ -38,7 +38,7 @@ class ServiceProvider extends Command
         }
 
         $namespace = Common::getNamespace( $this->rootDir );
-        $content   = str_replace( ['PluginNameSpace', 'ServiceProviderName'], [$namespace, $serviceProvider], $this->middlewareFileContent() );
+        $content   = (string) str_replace( ['PluginNameSpace', 'ServiceProviderName'], [$namespace, $serviceProvider], $this->middlewareFileContent() );
         $file      = fopen( $filePath, "wb" );
 
         fwrite( $file, $content );

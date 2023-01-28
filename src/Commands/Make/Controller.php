@@ -10,12 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Wpcommander\Artisan\Common;
 
-#[AsCommand(
-    name:'make:controller',
-    description:'Create a new controller class',
-)]
 class Controller extends Command
 {
+    protected static $defaultName = 'make:controller';
+
+    protected static $defaultDescription = 'Create a new controller class';
+
     protected $rootDir;
 
     public function __construct( string $rootDir )
@@ -27,7 +27,7 @@ class Controller extends Command
     protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $controller = $input->getArgument( 'controller' );
-        $controller = str_replace( [' ', '/', '\\'], ['', '', ''], $controller );
+        $controller = (string) str_replace( [' ', '/', '\\'], ['', '', ''], $controller );
         $controller = ucwords( $controller );
         $filePath   = $this->rootDir . '/app/Http/Controllers/' . $controller . '.php';
 
@@ -38,7 +38,7 @@ class Controller extends Command
         }
 
         $namespace = Common::getNamespace( $this->rootDir );
-        $content   = str_replace( ['PluginNameSpace', 'ControllerName'], [$namespace, $controller], $this->middlewareFileContent() );
+        $content   = (string) str_replace( ['PluginNameSpace', 'ControllerName'], [$namespace, $controller], $this->middlewareFileContent() );
         $file      = fopen( $filePath, "wb" );
 
         fwrite( $file, $content );

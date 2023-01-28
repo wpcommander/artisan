@@ -9,12 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Wpcommander\Artisan\Common;
 
-#[AsCommand(
-    name:'app:setup',
-    description:'Setup wordpress plugin basic information',
-)]
 class Setup extends Command
 {
+    protected static $defaultName = 'app:setup';
+
+    protected static $defaultDescription = 'Setup wordpress plugin basic information';
+
     protected $rootDir;
 
     public function __construct( string $rootDir )
