@@ -2,7 +2,6 @@
 
 namespace Wpcommander\Artisan\Commands\App;
 
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -83,7 +82,7 @@ class Setup extends Command
         fwrite( $file, $content );
         fclose( $file );
 
-        exec( 'composer dump-autoload' );
+        exec( 'composer add-prefix');
         exec( 'npm i' );
         exec( 'npm run minify' );
 
@@ -97,7 +96,8 @@ class Setup extends Command
             'Gruntfile.js',
             'package.json',
             'postcss.config.js',
-            'scoper.inc.php'
+            'scoper.inc.php',
+            'artisan'
         ];
     }
 
@@ -108,7 +108,7 @@ class Setup extends Command
 
     protected function folders()
     {
-        return ['app', 'bootstrap', 'config', 'enqueues', 'routes'];
+        return ['app', 'config', 'database', 'enqueues', 'routes'];
     }
 
     protected function pluginNameValidation( $pluginName, $input, $output )
