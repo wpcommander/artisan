@@ -153,6 +153,6 @@ class Setup extends Command
             $pluginNameSpace = $this->pluginNameSpaceValidation( $pluginNameSpace, $input, $output );
         }
 
-        return $pluginNameSpace;
+        return ucfirst( $pluginNameSpace );
     }
 }
